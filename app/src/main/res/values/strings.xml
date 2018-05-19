@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AlcoholApp</string>
     <string name="drink">Drink</string>
+    <string name="ABV">ABV</string>
 </resources>
