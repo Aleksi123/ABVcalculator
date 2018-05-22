@@ -15,15 +15,11 @@ public class Drink {
     @ColumnInfo(name = "drink_calories")
     private String drinkCalories;
 
-    @ColumnInfo(name = "drink_per_mil")
-    private String drinkPerMil;
-
-    public Drink(int id, String drinkName, String drinkCalories, String drinkPerMil) {
+    public Drink(int id, String drinkName, String drinkCalories) {
         this.id = id;
         this.drinkName = drinkName;
         this.drinkCalories = drinkCalories;
-        this.drinkPerMil = drinkPerMil;
-    }
+        }
 
     public int getId() {
         return id;
@@ -49,11 +45,4 @@ public class Drink {
         this.drinkCalories = drinkCalories;
     }
 
-    public String getDrinkPerMil() {
-        return drinkPerMil;
-    }
-
-    public void setDrinkPerMil(String drinkPerMil) {
-        this.drinkPerMil = drinkPerMil;
-    }
 }
