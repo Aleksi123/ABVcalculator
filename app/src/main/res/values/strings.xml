@@ -2,4 +2,8 @@
     <string name="app_name">AlcoholApp</string>
     <string name="drink">Drink</string>
     <string name="ABV">ABV</string>
+    <string name="action_settings">Settings</string>
+    <string name="button_save">Save</string>
+    <string name="calories">Calories</string>
+    <string name="cl">Cl</string>
 </resources>

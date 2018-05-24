@@ -1,4 +1,4 @@
-package com.example.a.alcoholapp;
+package com.example.a.alcoholapp.Database;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
@@ -8,17 +8,22 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import com.example.a.alcoholapp.Database.Dao.DrinkDao;
+import com.example.a.alcoholapp.Database.Entity.Drink;
+
 @Database(entities = {Drink.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract DrinkDao drinkDao();
     private static AppDatabase INSTANCE;
 
-    static AppDatabase getDatabase(final Context context) {
+    public static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             AppDatabase.class, "drink_database")
+                            .fallbackToDestructiveMigration()
+                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }
@@ -48,8 +53,8 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params) {
 
-            Drink drink = new Drink(1,"Beer","141");
-            mDao.insertAll(drink);
+            Drink drink = new Drink("Beer","33","141");
+            mDao.insert(drink);
 
             return null;
         }

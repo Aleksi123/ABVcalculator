@@ -1,22 +1,22 @@
-package com.example.a.alcoholapp;
+package com.example.a.alcoholapp.Database.Dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+
+import com.example.a.alcoholapp.Database.Entity.Drink;
 
 import java.util.List;
 
 @Dao
 public interface DrinkDao {
-    @Query("SELECT * FROM drink")
+    @Query("SELECT * FROM drink_table")
     LiveData<List<Drink>> getAll();
 
-    @Query("SELECT * FROM drink WHERE id IN (:drinkIds)")
-    LiveData<List<Drink>> loadAllByIds(int[] drinkIds);
-
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Drink drink);
 
     @Insert
@@ -25,6 +25,6 @@ public interface DrinkDao {
     @Delete
     void delete(Drink user);
 
-    @Query("DELETE FROM drink")
+    @Query("DELETE FROM drink_table")
     void deleteAll();
 }

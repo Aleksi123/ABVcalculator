@@ -1,9 +1,13 @@
-package com.example.a.alcoholapp;
+package com.example.a.alcoholapp.Database.Repository;
 
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
+
+import com.example.a.alcoholapp.Database.AppDatabase;
+import com.example.a.alcoholapp.Database.Entity.Drink;
+import com.example.a.alcoholapp.Database.Dao.DrinkDao;
 
 import java.util.List;
 
@@ -12,13 +16,13 @@ public class DrinkRepository {
     private DrinkDao mDrinkDao;
     private LiveData<List<Drink>> mAllDrinks;
 
-    DrinkRepository(Application application) {
+    public DrinkRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         mDrinkDao = db.drinkDao();
         mAllDrinks = mDrinkDao.getAll();
     }
 
-    LiveData<List<Drink>> getAllDrinks() {
+    public LiveData<List<Drink>> getAllDrinks() {
         return mAllDrinks;
     }
 
