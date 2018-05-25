@@ -8,6 +8,10 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "drink_table")
 public class Drink {
 
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    private int id;
+
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "drink")
@@ -30,4 +34,12 @@ public class Drink {
     public String getCl(){return  this.mCl;}
 
     public String getCalories(){return this.mCalories;}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
