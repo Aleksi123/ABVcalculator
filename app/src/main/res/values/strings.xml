@@ -7,4 +7,7 @@
     <string name="calories">Calories</string>
     <string name="cl">Cl</string>
     <string name="button_delete_drink">Delete drink</string>
+    <string name="weight">Weight</string>
+    <string name="gender">Gender</string>
+    <string name="age">Age</string>
 </resources>
