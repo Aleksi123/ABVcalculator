@@ -6,4 +6,5 @@
     <string name="button_save">Save</string>
     <string name="calories">Calories</string>
     <string name="cl">Cl</string>
+    <string name="button_delete_drink">Delete drink</string>
 </resources>

@@ -25,6 +25,9 @@ public interface DrinkDao {
     @Delete
     void delete(Drink user);
 
+    @Query("DELETE FROM drink_table WHERE id = :id")
+    int delete(long id);
+
     @Query("DELETE FROM drink_table")
     void deleteAll();
 }

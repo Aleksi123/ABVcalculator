@@ -1,0 +1,74 @@
+package com.example.a.alcoholapp.Listeners;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
+
+
+/**
+ * RecyclerItemClickListener
+ * Based on Eng.Foud answer on StackOverflow
+ * link https://stackoverflow.com/questions/24471109/recyclerview-onclick
+ */
+public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+
+
+    /**
+     * Interface which the consuming object uses when it wants to detect
+     * itemclicks on it's recyclerView e.g. our Mainactivity uses this interface to
+     * get the position which item was clicked.
+     * */
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+
+        void onItemLongClick(View view, int position);
+    }
+
+    private OnItemClickListener mListener;
+
+    private GestureDetector mGestureDetector;
+
+    //Constructor
+    public RecyclerItemClickListener(Context context, final RecyclerView recyclerView, OnItemClickListener listener) {
+        mListener = listener;
+
+        mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+                View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
+
+                if (childView != null && mListener != null) {
+                    mListener.onItemLongClick(childView, recyclerView.getChildAdapterPosition(childView));
+                }
+            }
+        });
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+        View childView = rv.findChildViewUnder(e.getX(), e.getY());
+
+        if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
+            mListener.onItemClick(childView, rv.getChildAdapterPosition(childView));
+        }
+
+        return false;
+    }
+
+    @Override
+    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        //TODO check if there is a need to write method implementation
+    }
+
+    @Override
+    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+        //TODO check if there is a need to write method implementation
+    }
+}

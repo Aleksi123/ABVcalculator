@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.a.alcoholapp.Database.Entity.Drink;
+import com.example.a.alcoholapp.Listeners.RecyclerItemClickListener;
 import com.example.a.alcoholapp.ViewModel.DrinkViewModel;
 import com.example.a.alcoholapp.R;
 
@@ -25,6 +26,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public static final int NEW_DRINK_ACTIVITY_REQUEST_CODE = 1;
+    public static final int MODIFY_DRINK_ACTIVITY_REQUEST_CODE = 2;
 
     private DrinkViewModel mDrinkViewModel;
 
@@ -41,6 +43,30 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //Add onItemTouchListener for recyclerview
+        recyclerView.addOnItemTouchListener(
+            new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //User clicked on a drink element
+                //switch to NewDrinkActivity
+                Intent intent = new Intent(MainActivity.this, NewDrinkActivity.class);
+                Drink drink = adapter.getAtPosition(position);
+
+                //Set drink information to the intent
+                intent.putExtra(NewDrinkActivity.EXTRA_DRINKID, adapter.getItemId(position));
+                intent.putExtra(NewDrinkActivity.EXTRA_DRINK_NAME, drink.getDrink());
+                intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CL, drink.getCl());
+                intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES, drink.getCalories());
+
+                startActivityForResult(intent, MODIFY_DRINK_ACTIVITY_REQUEST_CODE);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                //There is no need for longClick method yet...
+            }
+        }));
         mDrinkViewModel = ViewModelProviders.of(this).get(DrinkViewModel.class);
 
         mDrinkViewModel.getAllDrinks().observe(this, new Observer<List<Drink>>() {
@@ -80,14 +106,28 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_DRINK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Drink drink = new Drink(data.getStringExtra(NewDrinkActivity.EXTRA_REPLY),data.getStringExtra(NewDrinkActivity.EXTRA_REPLY2),
-                    data.getStringExtra(NewDrinkActivity.EXTRA_REPLY3));
+            Drink drink = new Drink(data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_NAME),data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_CL),
+                    data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES));
             mDrinkViewModel.insert(drink);
             Context context = getApplicationContext();
             CharSequence text = "Drink saved";
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
+        } else if(requestCode == MODIFY_DRINK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
+            //Check for DELETE flag
+            if(data.getBooleanExtra("DELETE", false)){
+                mDrinkViewModel.delete(data.getLongExtra(NewDrinkActivity.EXTRA_DRINKID, 0));
+                Toast.makeText(getApplicationContext(), "DRINK DELETED", Toast.LENGTH_SHORT).show();
+            }else{
+                //User modified the drink. Simply insert it to database.
+                //The new drink will be replaced by the old one in the database.
+                Drink drink = new Drink(data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_NAME),data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_CL),
+                        data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES));
+                drink.setId(data.getLongExtra(NewDrinkActivity.EXTRA_DRINKID, 0));
+                mDrinkViewModel.insert(drink);
+                Toast.makeText(getApplicationContext(), "DRINK UPDATED", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
