@@ -23,4 +23,6 @@ public class DrinkViewModel extends AndroidViewModel {
     public LiveData<List<Drink>> getAllDrinks() { return mAllDrinks; }
 
     public void insert(Drink drink) { mRepository.insert(drink); }
+
+    public void delete(long id){ mRepository.delete(id);}
 }

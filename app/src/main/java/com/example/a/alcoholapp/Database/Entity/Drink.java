@@ -10,15 +10,14 @@ public class Drink {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    private int id;
+    private long id;
 
-    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "drink")
     private String mDrink;
 
     @ColumnInfo(name = "cl")
-    private  String mCl;
+    private String mCl;
 
     @ColumnInfo(name = "calories")
     private String mCalories;
@@ -35,11 +34,11 @@ public class Drink {
 
     public String getCalories(){return this.mCalories;}
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

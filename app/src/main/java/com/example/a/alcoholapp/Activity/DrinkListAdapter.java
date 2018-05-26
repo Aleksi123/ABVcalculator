@@ -1,6 +1,7 @@
 package com.example.a.alcoholapp.Activity;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,14 +29,15 @@ public class DrinkListAdapter extends RecyclerView.Adapter<DrinkListAdapter.Drin
 
     DrinkListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
 
+    @NonNull
     @Override
-    public DrinkViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DrinkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
         return new DrinkViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(DrinkViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DrinkViewHolder holder, int position) {
         Drink current = mDrinks.get(position);
         String text = "Drink: "+current.getDrink()+ "\n"+"Cl: "+current.getCl()+"\n"+"Calories: "+current.getCalories();
         holder.drinkItemView.setText(text);
@@ -51,6 +53,20 @@ public class DrinkListAdapter extends RecyclerView.Adapter<DrinkListAdapter.Drin
         if (mDrinks != null)
             return mDrinks.size();
         else return 0;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return mDrinks.get(position).getId();
+    }
+
+    /**
+     * Returns a drink from underlying adapter.
+     * @param position the index of the Drink object
+     * @return Drink object
+     */
+    public Drink getAtPosition(int position){
+        return mDrinks.get(position);
     }
 }
 

@@ -10,6 +10,7 @@ import com.example.a.alcoholapp.Database.Entity.Drink;
 import com.example.a.alcoholapp.Database.Dao.DrinkDao;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class DrinkRepository {
 
@@ -30,6 +31,10 @@ public class DrinkRepository {
         new insertAsyncTask(mDrinkDao).execute(drink);
     }
 
+    public void delete (long id) {
+        new deleteAsyncTask(mDrinkDao).execute(id);
+    }
+
     private static class insertAsyncTask extends AsyncTask<Drink, Void, Void> {
 
         private DrinkDao mAsyncTaskDao;
@@ -41,6 +46,21 @@ public class DrinkRepository {
         @Override
         protected Void doInBackground(final Drink... params) {
             mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+    private static class deleteAsyncTask extends AsyncTask<Long, Void, Void> {
+
+        private DrinkDao mAsyncTaskDao;
+
+        deleteAsyncTask(DrinkDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Long... params) {
+            mAsyncTaskDao.delete(params[0]);
             return null;
         }
     }
