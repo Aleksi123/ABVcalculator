@@ -20,18 +20,27 @@ import com.example.a.alcoholapp.Database.Entity.Drink;
 import com.example.a.alcoholapp.Listeners.RecyclerItemClickListener;
 import com.example.a.alcoholapp.ViewModel.DrinkViewModel;
 import com.example.a.alcoholapp.R;
+import com.example.a.alcoholapp.ViewModel.ViewModelFactory;
 
 import java.util.List;
+
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final int NEW_DRINK_ACTIVITY_REQUEST_CODE = 1;
     public static final int MODIFY_DRINK_ACTIVITY_REQUEST_CODE = 2;
 
-    private DrinkViewModel mDrinkViewModel;
+    @Inject
+    ViewModelFactory factory;
+
+    DrinkViewModel mDrinkViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -67,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 //There is no need for longClick method yet...
             }
         }));
-        mDrinkViewModel = ViewModelProviders.of(this).get(DrinkViewModel.class);
+        mDrinkViewModel = ViewModelProviders.of(this, factory).get(DrinkViewModel.class);
 
         mDrinkViewModel.getAllDrinks().observe(this, new Observer<List<Drink>>() {
             @Override

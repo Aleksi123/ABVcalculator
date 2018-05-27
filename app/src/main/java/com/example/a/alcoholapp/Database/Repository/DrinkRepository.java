@@ -12,13 +12,16 @@ import com.example.a.alcoholapp.Database.Dao.DrinkDao;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import javax.inject.Inject;
+
 public class DrinkRepository {
 
     private DrinkDao mDrinkDao;
     private LiveData<List<Drink>> mAllDrinks;
 
-    public DrinkRepository(Application application) {
-        AppDatabase db = AppDatabase.getDatabase(application);
+    @Inject
+    public DrinkRepository(AppDatabase db) {
+        //AppDatabase db = AppDatabase.getDatabase(application);
         mDrinkDao = db.drinkDao();
         mAllDrinks = mDrinkDao.getAll();
     }

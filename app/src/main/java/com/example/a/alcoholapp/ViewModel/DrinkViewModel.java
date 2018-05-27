@@ -9,14 +9,17 @@ import com.example.a.alcoholapp.Database.Repository.DrinkRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class DrinkViewModel extends AndroidViewModel {
     private DrinkRepository mRepository;
 
     private LiveData<List<Drink>> mAllDrinks;
 
-    public DrinkViewModel (Application application) {
+    @Inject
+    public DrinkViewModel (Application application, DrinkRepository repo) {
         super(application);
-        mRepository = new DrinkRepository(application);
+        mRepository = repo;
         mAllDrinks = mRepository.getAllDrinks();
     }
 
