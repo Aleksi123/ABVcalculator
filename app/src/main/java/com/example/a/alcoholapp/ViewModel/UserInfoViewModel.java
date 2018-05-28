@@ -13,16 +13,27 @@ public class UserInfoViewModel extends AndroidViewModel {
     private UserInfoRepository mRepository;
 
     private LiveData<List<UserInfo>> mAllUserInfos;
+    private LiveData<String> mUserWeight;
+    private LiveData<String> mUserGender;
 
     public UserInfoViewModel (Application application) {
         super(application);
         mRepository = new UserInfoRepository(application);
         mAllUserInfos = mRepository.getAllUserInfos();
+        mUserWeight = mRepository.getmUserWeight();
+        mUserGender = mRepository.getmUserGender();
     }
 
-    public LiveData<List<UserInfo>> getAllDrinks() { return mAllUserInfos; }
+    public LiveData<List<UserInfo>> getAllUserInfos() { return mAllUserInfos; }
+
+    public LiveData<String> getmUserWeight() {
+        return mUserWeight;
+    }
+
+    public LiveData<String> getmUserGender() {
+        return mUserGender;
+    }
 
     public void insert(UserInfo userInfo) { mRepository.insert(userInfo); }
 
-    public void delete(int id){ mRepository.delete(id);}
 }

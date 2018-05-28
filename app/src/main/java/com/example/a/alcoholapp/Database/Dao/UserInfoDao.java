@@ -14,14 +14,17 @@ public interface UserInfoDao {
     @Query("SELECT * FROM user_info_table")
     LiveData<List<UserInfo>> getAll();
 
+    @Query("SELECT weight FROM user_info_table")
+    LiveData<String> getUserWeight();
+
+    @Query("SELECT gender FROM user_info_table")
+    LiveData<String> getUserGender();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(UserInfo userInfo);
 
     @Delete
     void delete(UserInfo userInfo);
-
-    @Query("DELETE FROM user_info_table WHERE id = :id")
-    int delete(int id);
 
     @Query("DELETE FROM user_info_table")
     void deleteAll();

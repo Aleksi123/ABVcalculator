@@ -3,43 +3,42 @@ package com.example.a.alcoholapp.Database.Entity;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity(tableName = "user_info_table")
 public class UserInfo {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "id")
-    private int id;
+    private String id;
 
     @ColumnInfo(name = "weight")
-    private Double weight;
+    private String weight;
 
     @ColumnInfo(name = "gender")
     private String gender;
 
-    @ColumnInfo(name = "age")
-    private String age;
-
-    public UserInfo(int id, Double weight, String gender, String age) {
+    public UserInfo(@NonNull String id, String weight, String gender) {
         this.id = id;
         this.weight = weight;
         this.gender = gender;
-        this.age = age;
     }
 
-    public int getId() {
+    @NonNull
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 
-    public Double getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
@@ -49,13 +48,5 @@ public class UserInfo {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
     }
 }

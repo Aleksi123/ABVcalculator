@@ -14,23 +14,31 @@ public class UserInfoRepository {
 
     private UserInfoDao mUserInfoDao;
     private LiveData<List<UserInfo>> mAllUserInfos;
+    private LiveData<String> mUserWeight;
+    private LiveData<String> mUserGender;
 
     public UserInfoRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         mUserInfoDao = db.userInfoDao();
         mAllUserInfos = mUserInfoDao.getAll();
+        mUserWeight = mUserInfoDao.getUserWeight();
+        mUserGender = mUserInfoDao.getUserGender();
     }
 
     public LiveData<List<UserInfo>> getAllUserInfos() {
         return mAllUserInfos;
     }
 
-    public void insert (UserInfo userInfo) {
-        new insertAsyncTask(mUserInfoDao).execute(userInfo);
+    public LiveData<String> getmUserWeight() {
+        return mUserWeight;
     }
 
-    public void delete (int id) {
-        new deleteAsyncTask(mUserInfoDao).execute(id);
+    public LiveData<String> getmUserGender() {
+        return mUserGender;
+    }
+
+    public void insert (UserInfo userInfo) {
+        new insertAsyncTask(mUserInfoDao).execute(userInfo);
     }
 
     private static class insertAsyncTask extends AsyncTask<UserInfo, Void, Void> {
@@ -44,21 +52,6 @@ public class UserInfoRepository {
         @Override
         protected Void doInBackground(final UserInfo... params) {
             mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
-    }
-
-    private static class deleteAsyncTask extends AsyncTask<Integer, Void, Void> {
-
-        private UserInfoDao mAsyncTaskDao;
-
-        deleteAsyncTask(UserInfoDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Integer... params) {
-            mAsyncTaskDao.delete(params[0]);
             return null;
         }
     }

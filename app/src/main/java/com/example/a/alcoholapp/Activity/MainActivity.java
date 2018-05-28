@@ -1,100 +1,60 @@
 package com.example.a.alcoholapp.Activity;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
-
 import com.example.a.alcoholapp.Database.Entity.Drink;
-import com.example.a.alcoholapp.Listeners.RecyclerItemClickListener;
-import com.example.a.alcoholapp.ViewModel.DrinkViewModel;
 import com.example.a.alcoholapp.R;
-
-import java.util.List;
+import com.example.a.alcoholapp.ViewModel.DrinkViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
+    Button addDrink, showDrinks, userInfo;
     public static final int NEW_DRINK_ACTIVITY_REQUEST_CODE = 1;
     public static final int MODIFY_DRINK_ACTIVITY_REQUEST_CODE = 2;
-
     private DrinkViewModel mDrinkViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
-
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final DrinkListAdapter adapter = new DrinkListAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        //Add onItemTouchListener for recyclerview
-        recyclerView.addOnItemTouchListener(
-            new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+        addDrink = findViewById(R.id.buttonAddDrink);
+        showDrinks = findViewById(R.id.buttonShowDrinks);
+        userInfo = findViewById(R.id.buttonUserInfo);
+        addDrink.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                //User clicked on a drink element
-                //switch to NewDrinkActivity
-                Intent intent = new Intent(MainActivity.this, NewDrinkActivity.class);
-                Drink drink = adapter.getAtPosition(position);
-
-                //Set drink information to the intent
-                intent.putExtra(NewDrinkActivity.EXTRA_DRINKID, adapter.getItemId(position));
-                intent.putExtra(NewDrinkActivity.EXTRA_DRINK_NAME, drink.getDrink());
-                intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CL, drink.getCl());
-                intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES, drink.getCalories());
-
-                startActivityForResult(intent, MODIFY_DRINK_ACTIVITY_REQUEST_CODE);
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-                //There is no need for longClick method yet...
-            }
-        }));
-        mDrinkViewModel = ViewModelProviders.of(this).get(DrinkViewModel.class);
-
-        mDrinkViewModel.getAllDrinks().observe(this, new Observer<List<Drink>>() {
-            @Override
-            public void onChanged(@Nullable final List<Drink> drinks) {
-                adapter.setDrinks(drinks);
-            }
-        });
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NewDrinkActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,NewDrinkActivity.class);
                 startActivityForResult(intent, NEW_DRINK_ACTIVITY_REQUEST_CODE);
             }
         });
-
-        FloatingActionButton fab2 = findViewById(R.id.fab2);
-        fab2.setOnClickListener(new View.OnClickListener() {
+        showDrinks.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,ShowDrinksActivity.class);
                 startActivity(intent);
             }
         });
-    }
+        userInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,UserInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+        mDrinkViewModel = ViewModelProviders.of(this).get(DrinkViewModel.class);
 
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -109,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -138,5 +97,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 }
