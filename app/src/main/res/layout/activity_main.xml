@@ -20,16 +20,10 @@
             android:theme="?attr/actionBarTheme" />
 
         <Button
-            android:id="@+id/buttonAddDrink"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="@string/addDrink" />
-
-        <Button
             android:id="@+id/buttonShowDrinks"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:text="@string/showDrinks" />
+            android:text="@string/drinks" />
 
         <Button
             android:id="@+id/buttonUserInfo"

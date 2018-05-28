@@ -13,4 +13,5 @@
     <string name="showDrinks">Show Drinks</string>
     <string name="addDrink">Add Drink</string>
     <string name="userInfo">User Info</string>
+    <string name="drinks">Drinks</string>
 </resources>

@@ -35,6 +35,9 @@ public class UserInfoActivity extends AppCompatActivity {
             public void onClick(View view) {
                     String weight = mEditWeightView.getText().toString();
                     String gender = mEditGenderView.getText().toString();
+                    // UserID is always 1, because there can only be one user at
+                    // the same time. Also when user inserts user info again it gets updated,
+                    // because UserInfoDao insert-method has OnConflictStrategy.REPLACE.
                     String userId = "1";
                     UserInfo userInfo = new UserInfo(userId, weight, gender);
                     mUserInfoViewModel.insert(userInfo);
