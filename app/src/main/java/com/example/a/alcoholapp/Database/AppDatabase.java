@@ -9,11 +9,14 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 import com.example.a.alcoholapp.Database.Dao.DrinkDao;
+import com.example.a.alcoholapp.Database.Dao.UserInfoDao;
 import com.example.a.alcoholapp.Database.Entity.Drink;
+import com.example.a.alcoholapp.Database.Entity.UserInfo;
 
-@Database(entities = {Drink.class}, version = 1)
+@Database(entities = {Drink.class, UserInfo.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract DrinkDao drinkDao();
+    public abstract UserInfoDao userInfoDao();
     private static AppDatabase INSTANCE;
 
     public static AppDatabase getDatabase(final Context context) {
@@ -45,9 +48,11 @@ public abstract class AppDatabase extends RoomDatabase {
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final DrinkDao mDao;
+        private final UserInfoDao mDao2;
 
         PopulateDbAsync(AppDatabase db) {
             mDao = db.drinkDao();
+            mDao2 = db.userInfoDao();
         }
 
         @Override
