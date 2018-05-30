@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AlcoholApp</string>
+    <string name="app_name">ABVcalculator</string>
     <string name="drink">Drink</string>
     <string name="ABV">ABV</string>
     <string name="action_settings">Settings</string>
