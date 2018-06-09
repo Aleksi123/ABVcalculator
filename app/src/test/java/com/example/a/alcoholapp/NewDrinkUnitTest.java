@@ -51,9 +51,6 @@ public class NewDrinkUnitTest {
     public void switchFromDrinksListToNewDrink() {
         ShowDrinksActivity activity = Robolectric.setupActivity(ShowDrinksActivity.class);
 
-        //Set mocks
-        DrinkRepository mockRepo = Mockito.mock(DrinkRepository.class);
-
         RecyclerView recyclerView = activity.findViewById(R.id.recyclerview);
         System.out.println("Number of drinks " + recyclerView.getAdapter().getItemCount());
 
