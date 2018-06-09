@@ -35,15 +35,6 @@ public class AppModule {
 
     @Singleton
     @Provides
-    AppDatabase provideAppDatabase(Context context){
-        return Room.databaseBuilder(context.getApplicationContext(),
-                AppDatabase.class, "drink_database")
-                .fallbackToDestructiveMigration()
-                .build();
-    }
-
-    @Singleton
-    @Provides
     ViewModelProvider.Factory provideViewModelFactory(
             ViewModelSubComponent.Builder viewModelSubComponent) {
 

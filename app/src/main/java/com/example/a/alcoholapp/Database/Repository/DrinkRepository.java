@@ -21,7 +21,6 @@ public class DrinkRepository {
 
     @Inject
     public DrinkRepository(AppDatabase db) {
-        //AppDatabase db = AppDatabase.getDatabase(application);
         mDrinkDao = db.drinkDao();
         mAllDrinks = mDrinkDao.getAll();
     }
@@ -48,6 +47,7 @@ public class DrinkRepository {
 
         @Override
         protected Void doInBackground(final Drink... params) {
+            System.out.println("In DrinkRepository");
             mAsyncTaskDao.insert(params[0]);
             return null;
         }

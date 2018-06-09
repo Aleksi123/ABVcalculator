@@ -16,6 +16,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {
         AndroidSupportInjectionModule.class,
         AppModule.class,
+        DatabaseModule.class,
         BuildersModule.class})
 public interface AppComponent extends AndroidInjector<AlcoholApp> {
 
