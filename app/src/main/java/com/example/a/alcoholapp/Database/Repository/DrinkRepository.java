@@ -12,13 +12,15 @@ import com.example.a.alcoholapp.Database.Dao.DrinkDao;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import javax.inject.Inject;
+
 public class DrinkRepository {
 
     private DrinkDao mDrinkDao;
     private LiveData<List<Drink>> mAllDrinks;
 
-    public DrinkRepository(Application application) {
-        AppDatabase db = AppDatabase.getDatabase(application);
+    @Inject
+    public DrinkRepository(AppDatabase db) {
         mDrinkDao = db.drinkDao();
         mAllDrinks = mDrinkDao.getAll();
     }
@@ -45,6 +47,7 @@ public class DrinkRepository {
 
         @Override
         protected Void doInBackground(final Drink... params) {
+            System.out.println("In DrinkRepository");
             mAsyncTaskDao.insert(params[0]);
             return null;
         }

@@ -20,8 +20,13 @@ import com.example.a.alcoholapp.Database.Entity.Drink;
 import com.example.a.alcoholapp.Listeners.RecyclerItemClickListener;
 import com.example.a.alcoholapp.ViewModel.DrinkViewModel;
 import com.example.a.alcoholapp.R;
+import com.example.a.alcoholapp.ViewModel.ViewModelFactory;
 
 import java.util.List;
+
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
 
 public class ShowDrinksActivity extends AppCompatActivity {
 
@@ -30,8 +35,12 @@ public class ShowDrinksActivity extends AppCompatActivity {
 
     private DrinkViewModel mDrinkViewModel;
 
+    @Inject
+    ViewModelFactory factory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showdrinks);
 
@@ -39,7 +48,6 @@ public class ShowDrinksActivity extends AppCompatActivity {
         final DrinkListAdapter adapter = new DrinkListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         //Add onItemTouchListener for recyclerview
         recyclerView.addOnItemTouchListener(
             new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -64,7 +72,7 @@ public class ShowDrinksActivity extends AppCompatActivity {
                 //There is no need for longClick method yet...
             }
         }));
-        mDrinkViewModel = ViewModelProviders.of(this).get(DrinkViewModel.class);
+        mDrinkViewModel = ViewModelProviders.of(this, factory).get(DrinkViewModel.class);
 
         mDrinkViewModel.getAllDrinks().observe(this, new Observer<List<Drink>>() {
             @Override
