@@ -7,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.example.a.alcoholapp.Database.Entity.Drink;
-import com.example.a.alcoholapp.R;
-
 import java.util.List;
+import com.example.a.alcoholapp.R;
 
 public class DrinkListAdapter extends RecyclerView.Adapter<DrinkListAdapter.DrinkViewHolder> {
 
