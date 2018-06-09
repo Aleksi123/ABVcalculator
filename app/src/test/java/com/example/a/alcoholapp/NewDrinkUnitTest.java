@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.example.a.alcoholapp.Activity.MainActivity;
 import com.example.a.alcoholapp.Activity.NewDrinkActivity;
+import com.example.a.alcoholapp.Activity.ShowDrinksActivity;
 import com.example.a.alcoholapp.Database.AppDatabase;
 import com.example.a.alcoholapp.Database.Repository.DrinkRepository;
 import com.example.a.alcoholapp.di.DatabaseModule;
@@ -48,7 +49,7 @@ public class NewDrinkUnitTest {
 
     @Test
     public void switchFromDrinksListToNewDrink() {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+        ShowDrinksActivity activity = Robolectric.setupActivity(ShowDrinksActivity.class);
 
         //Set mocks
         DrinkRepository mockRepo = Mockito.mock(DrinkRepository.class);

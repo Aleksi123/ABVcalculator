@@ -1,6 +1,7 @@
 package com.example.a.alcoholapp.di;
 
 import com.example.a.alcoholapp.Activity.MainActivity;
+import com.example.a.alcoholapp.Activity.ShowDrinksActivity;
 
 import dagger.Module;
 import dagger.android.AndroidInjectionModule;
@@ -13,7 +14,7 @@ import dagger.android.ContributesAndroidInjector;
 abstract class BuildersModule {
 
     @ContributesAndroidInjector
-    abstract MainActivity bindMainActivity();
+    abstract ShowDrinksActivity bindMainActivity();
 
     // Add bindings for other sub-components here
 }

@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.a.alcoholapp.R;
+import com.example.a.alcoholapp.ViewModel.DrinkViewModel;
+import com.example.a.alcoholapp.ViewModel.ViewModelFactory;
+
+import javax.inject.Inject;
 
 public class NewDrinkActivity extends AppCompatActivity {
 
