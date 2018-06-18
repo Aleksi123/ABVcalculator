@@ -58,9 +58,6 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params) {
 
-            Drink drink = new Drink("Beer","33","141");
-            mDao.insert(drink);
-
             return null;
         }
     }

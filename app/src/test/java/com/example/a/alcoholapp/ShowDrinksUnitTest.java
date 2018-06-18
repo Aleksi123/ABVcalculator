@@ -14,9 +14,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -90,8 +88,8 @@ public class ShowDrinksUnitTest {
         //Set intent data
         Intent intent = new Intent();
         intent.putExtra(NewDrinkActivity.EXTRA_DRINK_NAME, "test");
-        intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CL, "4");
-        intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES, "5");
+        intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CL, 4);
+        intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES, 5);
 
         //Trigger method which will cause a database insert operation
         activityUnderTest.onActivityResult(NEW_DRINK_ACTIVITY_REQUEST_CODE, RESULT_OK, intent);
@@ -104,8 +102,8 @@ public class ShowDrinksUnitTest {
 
         //Verify data
         assertEquals("Drink Name should be same the same as intents","test", drink.getDrink());
-        assertEquals("Drink CL should be same the same as intents","4", drink.getCl());
-        assertEquals("Drink Calories should be same the same as intents","5", drink.getCalories());
+        assertEquals("Drink CL should be same the same as intents",4, drink.getCl());
+        assertEquals("Drink Calories should be same the same as intents",5, drink.getCalories());
     }
 
     @Test
@@ -113,9 +111,9 @@ public class ShowDrinksUnitTest {
         //Set intent data
         Intent intent = new Intent();
         intent.putExtra(NewDrinkActivity.EXTRA_DRINK_NAME, "test");
-        intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CL, "4");
-        intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES, "5");
-        intent.putExtra(NewDrinkActivity.EXTRA_DRINKID, 1L);
+        intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CL, 4);
+        intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES, 5);
+        intent.putExtra(NewDrinkActivity.EXTRA_DRINK_ID, 1L);
 
         //Trigger method which will cause a database insert operation
         activityUnderTest.onActivityResult(MODIFY_DRINK_ACTIVITY_REQUEST_CODE, RESULT_OK, intent);
@@ -128,8 +126,8 @@ public class ShowDrinksUnitTest {
 
         //Verify data
         assertEquals("Drink Name should be same the same as intent's","test", drink.getDrink());
-        assertEquals("Drink CL should be same the same as intent's","4", drink.getCl());
-        assertEquals("Drink Calories should be same the same as intent's","5", drink.getCalories());
+        assertEquals("Drink CL should be same the same as intent's",4, drink.getCl());
+        assertEquals("Drink Calories should be same the same as intent's",5, drink.getCalories());
         assertEquals("Drink Id should be same the same as intent's",1L, drink.getId());
     }
 

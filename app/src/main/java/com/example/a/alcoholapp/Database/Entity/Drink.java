@@ -14,25 +14,24 @@ public class Drink {
 
     @NonNull
     @ColumnInfo(name = "drink")
-    private String mDrink;
+    private String Drink;
 
     @ColumnInfo(name = "cl")
-    private String mCl;
+    private int Cl;
 
     @ColumnInfo(name = "calories")
-    private String mCalories;
+    private int Calories;
 
-    public Drink(@NonNull String drink, String cl, String calories) {
-        this.mDrink = drink;
-        this.mCl = cl;
-        this.mCalories = calories;
+    private double AlcoholPercentage;
+
+    public Drink(){}
+
+    public Drink(@NonNull String drink, int cl, int calories, double alcoholPercentage) {
+        Drink = drink;
+        Cl = cl;
+        Calories = calories;
+        AlcoholPercentage = alcoholPercentage;
     }
-
-    public String getDrink(){return this.mDrink;}
-
-    public String getCl(){return  this.mCl;}
-
-    public String getCalories(){return this.mCalories;}
 
     public long getId() {
         return id;
@@ -40,5 +39,38 @@ public class Drink {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @NonNull
+    public String getDrink() {
+        return Drink;
+    }
+
+    public void setDrink(@NonNull String drink) {
+        Drink = drink;
+    }
+
+    public int getCl() {
+        return Cl;
+    }
+
+    public void setCl(int cl) {
+        Cl = cl;
+    }
+
+    public int getCalories() {
+        return Calories;
+    }
+
+    public void setCalories(int calories) {
+        Calories = calories;
+    }
+
+    public double getAlcoholPercentage() {
+        return AlcoholPercentage;
+    }
+
+    public void setAlcoholPercentage(double alcoholPercentage) {
+        AlcoholPercentage = alcoholPercentage;
     }
 }

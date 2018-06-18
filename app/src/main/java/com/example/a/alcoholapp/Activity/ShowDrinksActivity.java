@@ -10,9 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -59,10 +56,11 @@ public class ShowDrinksActivity extends AppCompatActivity {
                 Drink drink = adapter.getAtPosition(position);
 
                 //Set drink information to the intent
-                intent.putExtra(NewDrinkActivity.EXTRA_DRINKID, adapter.getItemId(position));
+                intent.putExtra(NewDrinkActivity.EXTRA_DRINK_ID, adapter.getItemId(position));
                 intent.putExtra(NewDrinkActivity.EXTRA_DRINK_NAME, drink.getDrink());
                 intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CL, drink.getCl());
                 intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES, drink.getCalories());
+                intent.putExtra(NewDrinkActivity.EXTRA_DRINK_ALCOHOLPERCENTAGE, drink.getAlcoholPercentage());
 
                 startActivityForResult(intent, MODIFY_DRINK_ACTIVITY_REQUEST_CODE);
             }
@@ -105,8 +103,8 @@ public class ShowDrinksActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_DRINK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Drink drink = new Drink(data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_NAME),data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_CL),
-                    data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES));
+            Drink drink = new Drink(data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_NAME),data.getIntExtra(NewDrinkActivity.EXTRA_DRINK_CL, 0),
+                    data.getIntExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES, 0), data.getDoubleExtra(NewDrinkActivity.EXTRA_DRINK_ALCOHOLPERCENTAGE, 0));
             mDrinkViewModel.insert(drink);
             Context context = getApplicationContext();
             CharSequence text = "Drink saved";
@@ -116,14 +114,14 @@ public class ShowDrinksActivity extends AppCompatActivity {
         } else if(requestCode == MODIFY_DRINK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
             //Check for DELETE flag
             if(data.getBooleanExtra("DELETE", false)){
-                mDrinkViewModel.delete(data.getLongExtra(NewDrinkActivity.EXTRA_DRINKID, 0));
+                mDrinkViewModel.delete(data.getLongExtra(NewDrinkActivity.EXTRA_DRINK_ID, 0));
                 Toast.makeText(getApplicationContext(), "DRINK DELETED", Toast.LENGTH_SHORT).show();
             }else{
                 //User modified the drink. Simply insert it to database.
                 //The new drink will be replaced by the old one in the database.
-                Drink drink = new Drink(data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_NAME),data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_CL),
-                        data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES));
-                drink.setId(data.getLongExtra(NewDrinkActivity.EXTRA_DRINKID, 0));
+                Drink drink = new Drink(data.getStringExtra(NewDrinkActivity.EXTRA_DRINK_NAME),data.getIntExtra(NewDrinkActivity.EXTRA_DRINK_CL, 0),
+                        data.getIntExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES, 0), data.getDoubleExtra(NewDrinkActivity.EXTRA_DRINK_ALCOHOLPERCENTAGE, 0));
+                drink.setId(data.getLongExtra(NewDrinkActivity.EXTRA_DRINK_ID, 0));
                 mDrinkViewModel.insert(drink);
                 Toast.makeText(getApplicationContext(), "DRINK UPDATED", Toast.LENGTH_SHORT).show();
             }
