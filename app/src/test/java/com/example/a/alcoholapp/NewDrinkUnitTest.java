@@ -52,7 +52,6 @@ public class NewDrinkUnitTest {
         ShowDrinksActivity activity = Robolectric.setupActivity(ShowDrinksActivity.class);
 
         RecyclerView recyclerView = activity.findViewById(R.id.recyclerview);
-        System.out.println("Number of drinks " + recyclerView.getAdapter().getItemCount());
 
         activity.findViewById(R.id.fab).performClick();
 

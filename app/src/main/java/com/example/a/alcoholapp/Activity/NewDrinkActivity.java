@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.a.alcoholapp.R;
 import com.example.a.alcoholapp.validation.NaturalNumberValidation;
 import com.example.a.alcoholapp.validation.NewDrinkValidator;
+import com.example.a.alcoholapp.validation.NotEmptyStringValidation;
 import com.example.a.alcoholapp.validation.PercentageValidation;
 
 import javax.inject.Inject;
@@ -25,7 +26,7 @@ public class NewDrinkActivity extends AppCompatActivity {
     public static final String EXTRA_DRINK_CALORIES = "com.example.android.wordlistsql.REPLY3";
     public static final String EXTRA_DRINK_ALCOHOLPERCENTAGE = "com.example.android.wordlistsql.REPLY4";
     public static final String EXTRA_DRINK_ID = "com.example.android.wordlistsql.DRINK_ID";
-    private EditText mEditDrinkView, mEditClView, mEditCaloriesView, mEditAlcoholPercentage;
+    private EditText mEditDrinkView, mEditVolumeView, mEditCaloriesView, mEditAlcoholPercentage;
     @Inject
     NewDrinkValidator validator;
 
@@ -36,20 +37,21 @@ public class NewDrinkActivity extends AppCompatActivity {
         //Set up validator
         setContentView(R.layout.activity_new_drink);
         mEditDrinkView = findViewById(R.id.edit_drink);
-        mEditClView = findViewById(R.id.edit_cl);
+        mEditVolumeView = findViewById(R.id.edit_cl);
         mEditCaloriesView = findViewById(R.id.edit_calories);
         mEditAlcoholPercentage = findViewById(R.id.alcoholPercentage);
         //Register EditTexts to the validator
-        validator.registerEditText(mEditClView, "Volume", new NaturalNumberValidation());
-        validator.registerEditText(mEditCaloriesView, "Calories", new NaturalNumberValidation());
-        validator.registerEditText(mEditAlcoholPercentage, "AlcoholPercentage", new PercentageValidation());
+        validator.registerEditText(mEditDrinkView, getString(R.string.DrinkNameEmpty), new NotEmptyStringValidation());
+        validator.registerEditText(mEditVolumeView, getString(R.string.InvalidVolumeValue), new NaturalNumberValidation());
+        validator.registerEditText(mEditCaloriesView, getString(R.string.InvalidCaloriesValue), new NaturalNumberValidation());
+        validator.registerEditText(mEditAlcoholPercentage, getString(R.string.InvalidPercentageValue), new PercentageValidation());
         Intent intent = getIntent();
         final long drinkId = intent.getLongExtra(EXTRA_DRINK_ID, (long)-1);
         //Check if drink id was set
         if(drinkId>-1){
             //Intent has values of our drink so we are modifying EXISTING drink
             mEditDrinkView.setText(intent.getStringExtra(EXTRA_DRINK_NAME));
-            mEditClView.setText(String.valueOf(intent.getIntExtra(EXTRA_DRINK_CL, 0)));
+            mEditVolumeView.setText(String.valueOf(intent.getIntExtra(EXTRA_DRINK_CL, 0)));
             mEditCaloriesView.setText(String.valueOf(intent.getIntExtra(EXTRA_DRINK_CALORIES, 0)));
             mEditAlcoholPercentage.setText(String.valueOf(intent.getDoubleExtra(EXTRA_DRINK_ALCOHOLPERCENTAGE, 0)));
             //Set a listener for the delete drink button
@@ -73,8 +75,7 @@ public class NewDrinkActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Validation
                 if(!validator.validate()){
-                    //If validation failed retrieve the error message and show it to the user.
-                    Toast.makeText(getApplicationContext(), validator.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    //If validation failed simply return.
                     return;
                 }
 
@@ -85,7 +86,7 @@ public class NewDrinkActivity extends AppCompatActivity {
                     String drink = mEditDrinkView.getText().toString();
                     replyIntent.putExtra(EXTRA_DRINK_NAME, drink);
 
-                    int cl = Integer.parseInt(mEditClView.getText().toString());
+                    int cl = Integer.parseInt(mEditVolumeView.getText().toString());
                     replyIntent.putExtra(EXTRA_DRINK_CL, cl);
 
                     int calories = Integer.parseInt(mEditCaloriesView.getText().toString());

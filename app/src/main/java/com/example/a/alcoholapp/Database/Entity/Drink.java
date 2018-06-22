@@ -13,8 +13,8 @@ public class Drink {
     private long id;
 
     @NonNull
-    @ColumnInfo(name = "drink")
-    private String Drink;
+    @ColumnInfo(name = "name")
+    private String name;
 
     @ColumnInfo(name = "cl")
     private int Cl;
@@ -22,12 +22,15 @@ public class Drink {
     @ColumnInfo(name = "calories")
     private int Calories;
 
+    @ColumnInfo(name = "alcoholPercentage")
     private double AlcoholPercentage;
 
-    public Drink(){}
+    public Drink(){
+        name = "";
+    }
 
     public Drink(@NonNull String drink, int cl, int calories, double alcoholPercentage) {
-        Drink = drink;
+        name = drink;
         Cl = cl;
         Calories = calories;
         AlcoholPercentage = alcoholPercentage;
@@ -42,12 +45,12 @@ public class Drink {
     }
 
     @NonNull
-    public String getDrink() {
-        return Drink;
+    public String getName() {
+        return name;
     }
 
-    public void setDrink(@NonNull String drink) {
-        Drink = drink;
+    public void setName(@NonNull String name) {
+        this.name = name;
     }
 
     public int getCl() {

@@ -101,7 +101,7 @@ public class ShowDrinksUnitTest {
         Drink drink = argumentCaptor.getValue();
 
         //Verify data
-        assertEquals("Drink Name should be same the same as intents","test", drink.getDrink());
+        assertEquals("Drink Name should be same the same as intents","test", drink.getName());
         assertEquals("Drink CL should be same the same as intents",4, drink.getCl());
         assertEquals("Drink Calories should be same the same as intents",5, drink.getCalories());
     }
@@ -125,7 +125,7 @@ public class ShowDrinksUnitTest {
         Drink drink = argumentCaptor.getValue();
 
         //Verify data
-        assertEquals("Drink Name should be same the same as intent's","test", drink.getDrink());
+        assertEquals("Drink Name should be same the same as intent's","test", drink.getName());
         assertEquals("Drink CL should be same the same as intent's",4, drink.getCl());
         assertEquals("Drink Calories should be same the same as intent's",5, drink.getCalories());
         assertEquals("Drink Id should be same the same as intent's",1L, drink.getId());

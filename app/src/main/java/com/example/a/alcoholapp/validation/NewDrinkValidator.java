@@ -12,30 +12,29 @@ import java.util.List;
 public class NewDrinkValidator implements EditTextValidator<String> {
 
     private List<EditText> editTexts = new ArrayList<>();
-    private List<String> fieldNames = new ArrayList<>();
+    private List<String> errorMessages = new ArrayList<>();
     private List<ValidationFunction<String>> validators = new ArrayList<>();
     private String errorMessage = "";
 
 
     @Override
-    public void registerEditText(EditText editText, String fieldName, ValidationFunction<String> validationFunction) {
+    public void registerEditText(EditText editText, String errorMessage, ValidationFunction<String> validationFunction) {
         editTexts.add(editText);
-        fieldNames.add(fieldName);
+        errorMessages.add(errorMessage);
         validators.add(validationFunction);
     }
 
-    @Override
+    @Override //true on success , false otherwise
     public boolean validate() {
-        errorMessage = "";
+        boolean userInputValid = true;
         for(int i = 0; i<editTexts.size() ;i++){
             if(!validators.get(i).validate(editTexts.get(i).getText().toString())){
                 //If invalid set errorMessage
-                errorMessage = fieldNames.get(i) + " field has invalid value! Please check the field value";
-                editTexts.get(i).setError(errorMessage);
-                return false;
+                editTexts.get(i).setError(errorMessages.get(i));
+                userInputValid = false;
             }
         }
-        return true;
+        return userInputValid;
     }
 
     @Override

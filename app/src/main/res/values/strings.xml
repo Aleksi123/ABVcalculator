@@ -5,7 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="button_save">Save</string>
     <string name="calories">Calories</string>
-    <string name="cl">Cl</string>
+    <string name="volume">Volume</string>
     <string name="button_delete_drink">Delete drink</string>
     <string name="weight">Weight</string>
     <string name="gender">Gender</string>
@@ -15,4 +15,10 @@
     <string name="addDrink">Add Drink</string>
     <string name="userInfo">User Info</string>
     <string name="drinks">Drinks</string>
+
+    <!-- Error messages -->
+    <string name="DrinkNameEmpty">Drink name should not be empty</string>
+    <string name="InvalidPercentageValue">Bad percentage value!</string>
+    <string name="InvalidVolumeValue">Invalid volume value!</string>
+    <string name="InvalidCaloriesValue">Invalid Calories value!</string>
 </resources>

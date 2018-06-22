@@ -57,7 +57,7 @@ public class ShowDrinksActivity extends AppCompatActivity {
 
                 //Set drink information to the intent
                 intent.putExtra(NewDrinkActivity.EXTRA_DRINK_ID, adapter.getItemId(position));
-                intent.putExtra(NewDrinkActivity.EXTRA_DRINK_NAME, drink.getDrink());
+                intent.putExtra(NewDrinkActivity.EXTRA_DRINK_NAME, drink.getName());
                 intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CL, drink.getCl());
                 intent.putExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES, drink.getCalories());
                 intent.putExtra(NewDrinkActivity.EXTRA_DRINK_ALCOHOLPERCENTAGE, drink.getAlcoholPercentage());
