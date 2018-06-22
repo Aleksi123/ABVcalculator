@@ -52,7 +52,6 @@ public class NewDrinkUnitTest {
         ShowDrinksActivity activity = Robolectric.setupActivity(ShowDrinksActivity.class);
 
         RecyclerView recyclerView = activity.findViewById(R.id.recyclerview);
-        System.out.println("Number of drinks " + recyclerView.getAdapter().getItemCount());
 
         activity.findViewById(R.id.fab).performClick();
 
@@ -95,10 +94,12 @@ public class NewDrinkUnitTest {
         EditText name = newDrinkActivity.findViewById(R.id.edit_drink);
         EditText cl = newDrinkActivity.findViewById(R.id.edit_cl);
         EditText calories = newDrinkActivity.findViewById(R.id.edit_calories);
+        EditText alcoholPercentage = newDrinkActivity.findViewById(R.id.alcoholPercentage);
 
         name.setText("Test");
         cl.setText("4");
         calories.setText("5");
+        alcoholPercentage.setText("4.7");
 
         //Click the save button which should trigger setResult() with intent
         newDrinkActivity.findViewById(R.id.button_save).performClick();
@@ -107,7 +108,8 @@ public class NewDrinkUnitTest {
         Intent resultIntent = shadowOf(newDrinkActivity).getResultIntent();
         assertTrue("Result code should be 200",shadowOf(newDrinkActivity).getResultCode() == RESULT_OK);
         assertEquals("New drink name should be Test","Test", resultIntent.getStringExtra(NewDrinkActivity.EXTRA_DRINK_NAME));
-        assertEquals("New drink cl should be 4","4", resultIntent.getStringExtra(NewDrinkActivity.EXTRA_DRINK_CL));
-        assertEquals("New drink calorie value should be 5","5", resultIntent.getStringExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES));
+        assertEquals("New drink cl should be 4",4, resultIntent.getIntExtra(NewDrinkActivity.EXTRA_DRINK_CL, 0));
+        assertEquals("New drink calorie value should be 5",5, resultIntent.getIntExtra(NewDrinkActivity.EXTRA_DRINK_CALORIES, 0));
+        assertEquals("New drink alcohol percentage value should be 4.7",4.7, resultIntent.getDoubleExtra(NewDrinkActivity.EXTRA_DRINK_ALCOHOLPERCENTAGE, 0), 0.001);
     }
 }

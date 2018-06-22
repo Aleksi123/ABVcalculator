@@ -11,6 +11,7 @@ import com.example.a.alcoholapp.Database.AppDatabase;
 import com.example.a.alcoholapp.Database.Repository.DrinkRepository;
 import com.example.a.alcoholapp.ViewModel.DrinkViewModel;
 import com.example.a.alcoholapp.ViewModel.ViewModelFactory;
+import com.example.a.alcoholapp.validation.NewDrinkValidator;
 
 import javax.inject.Singleton;
 
@@ -44,6 +45,11 @@ public class AppModule {
     @Provides
     DrinkRepository provideDrinkRepository(AppDatabase db){
         return new DrinkRepository(db);
+    }
+
+    @Provides
+    NewDrinkValidator provideNewDrinkValidator(){
+        return new NewDrinkValidator();
     }
 
     //TODO look for a better way to bring ViewModelSubComponent
