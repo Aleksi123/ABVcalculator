@@ -37,7 +37,8 @@ public class DrinkListAdapter extends RecyclerView.Adapter<DrinkListAdapter.Drin
     @Override
     public void onBindViewHolder(@NonNull DrinkViewHolder holder, int position) {
         Drink current = mDrinks.get(position);
-        String text = "Drink: "+current.getName()+ "\n"+"Cl: "+current.getCl()+"\n"+"Calories: "+current.getCalories();
+        String text = "Drink: "+current.getName()+ "\n"+"Cl: "+current.getCl()+
+                "\n"+"Calories: "+current.getCalories()+"\n"+"Alcohol%: "+current.getAlcoholPercentage();
         holder.drinkItemView.setText(text);
     }
 
